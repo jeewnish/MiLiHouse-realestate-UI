@@ -36,15 +36,17 @@ nav {
     a {
       transition: all 0.4s ease;
       &:hover {
-        scale: 1.05;
+        transform: scale(1.05); // Fixed the scale usage
       }
     }
 
     @include sm {
-      a:not(:has(img)) {
-        display: none;
+      a {
+        &:not(:nth-child(1)) { // Fallback for :has() pseudo-class
+          display: none;
+        }
       }
-    }  
+    }
   }
 
   .right {
@@ -57,16 +59,16 @@ nav {
     a {
       transition: all 0.4s ease;
       &:hover {
-        scale: 1.05;
+        transform: scale(1.05); // Fixed the scale usage
       }
     }
-    
+
     @include sm {
       .signin, .menuIcon {
         display: none;
       }
     }
-    
+
     @include md {
       border-color: transparent;
     }
@@ -74,7 +76,6 @@ nav {
     .signin, .signup {
       padding: 10px 20px;
     }
-
 
     .signup {
       background-color: rgb(250, 216, 67);
@@ -98,7 +99,7 @@ nav {
 
     // Sidebar menu
     .menu {
-      display: none;
+      display: none; // Fixed duplication of display property
       position: absolute;
       top: 0;
       right: 0;
@@ -106,7 +107,6 @@ nav {
       color: white;
       height: 100vh;
       width: 50%;
-      display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -124,13 +124,13 @@ nav {
         text-decoration: none;
         font-size: 1.5rem;
       }
-    
+
       @include sm {
-        a{
+        display: flex; // Ensure menu is displayed on small screens when active
+        a {
           display: initial;
         }
-        }
+      }
     }
-    
   }
 }
