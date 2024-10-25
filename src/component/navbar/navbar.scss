@@ -1,14 +1,136 @@
-nav{
+@mixin sm {
+  @media (max-width: 640px) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: 641px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: 1025px) {
+    @content;
+  }
+}
+
+nav {
   display: flex;
   justify-content: space-between;
   height: 100px;
   align-items: center;
 
-  .left{
+  .left {
     flex: 3;
-    background-color: white;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+
+    img {
+      height: 75px;
+      width: 130px;
+    }
+
+    a {
+      transition: all 0.4s ease;
+      &:hover {
+        scale: 1.05;
+      }
+    }
+
+    @include sm {
+      a:not(:has(img)) {
+        display: none;
+      }
+    }  
   }
-  .right{
-    flex: 2
+
+  .right {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+
+    a {
+      transition: all 0.4s ease;
+      &:hover {
+        scale: 1.05;
+      }
+    }
+    
+    @include sm {
+      .signin, .menuIcon {
+        display: none;
+      }
+    }
+    
+    @include md {
+      border-color: transparent;
+    }
+
+    .signin, .signup {
+      padding: 10px 20px;
+    }
+
+
+    .signup {
+      background-color: rgb(250, 216, 67);
+    }
+
+    // Menu icon for small screens
+    .menuIcon {
+      display: none;
+      cursor: pointer;
+      z-index: 98;
+
+      img {
+        width: 36px;
+        height: 36px;
+      }
+
+      @include sm {
+        display: block;
+      }
+    }
+
+    // Sidebar menu
+    .menu {
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: black;
+      color: white;
+      height: 100vh;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+
+      &.active {
+        transform: translateX(0);
+        right: 0;
+      }
+
+      a {
+        padding: 20px;
+        color: white;
+        text-decoration: none;
+        font-size: 1.5rem;
+      }
+    
+      @include sm {
+        a{
+          display: initial;
+        }
+        }
+    }
+    
   }
 }
